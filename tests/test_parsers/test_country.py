@@ -5,6 +5,7 @@ from pytest import mark, param
 
 from mediares.maze import parsers
 
+
 @mark.parsing
 @mark.parametrize(
     'data', [
@@ -23,7 +24,6 @@ from mediares.maze import parsers
                 'timezone': 'Europe/Prague',
             },
             id='official_name',
-            marks=mark.xfail(reason='name is official_name instead of name'),
         ),
         param(
             {
