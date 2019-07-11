@@ -6,7 +6,6 @@ from pytest import mark, param
 from mediares.maze import parsers
 
 
-@mark.parsing
 @mark.parametrize(
     'data', [
         param(
@@ -46,7 +45,6 @@ def test_parse_country(data):
     assert isinstance(parsed['timezone'], datetime.tzinfo)
 
 
-@mark.parsing
 @mark.parametrize(
     'data', [
         param(
