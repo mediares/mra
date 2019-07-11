@@ -64,7 +64,6 @@ def test_parse_country(data):
                 'timezone': 'Europe/Prague',
             },
             id='official_name',
-            marks=mark.xfail(reason='name is official_name instead of name'),
         ),
         param(
             {

@@ -25,7 +25,7 @@ def parse_country(
     name = data['name']
     code = data['code']
 
-    by_name = pycountry.countries.get(name=name)
+    by_name = pycountry.countries.lookup(name)
     log.debug(f'name {name!r} parses as: {by_name}')
 
     if strict or by_name is None:
