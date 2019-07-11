@@ -21,16 +21,23 @@ def parse_country(
     :return: A mapping contain country and timezone data
     """
     timezone = dateutil.tz.gettz(data['timezone'])
+
     name = data['name']
+    code = data['code']
+
     by_name = pycountry.countries.get(name=name)
-    if strict:
-        code = data['code']
+    log.debug(f'name {name!r} parses as: {by_name}')
+
+    if strict or by_name is None:
         by_code = pycountry.countries.get(alpha_2=code)
-        if by_name != by_code:
-            log.debug(f'name {name!r} parses as: {by_name}')
-            log.debug(f'code {code!r} parses as: {by_code}')
-            raise ValueError(f'Ambiguous country')
+        log.debug(f'code {code!r} parses as: {by_code}')
+    else:
+        by_code = None
+
+    if strict and by_name != by_code:
+        raise ValueError(f'Ambiguous country')
+
     return {
-        'country': by_name,
+        'country': by_name or by_code,
         'timezone': timezone,
     }
