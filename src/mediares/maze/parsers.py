@@ -41,3 +41,18 @@ def parse_country(
         'country': by_name or by_code,
         'timezone': timezone,
     }
+
+
+def parse_network(
+        data: typing.Mapping,
+) -> typing.Mapping:
+    """Parse a TVMaze network.
+
+    :param data: Network data from TVMaze
+    :return: A mapping contain country and timezone data
+    """
+    return {
+        'maze_id': data['id'],
+        'name': data['name'],
+        **parse_country(data['country']),
+    }
