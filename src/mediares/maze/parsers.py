@@ -41,3 +41,41 @@ def parse_country(
         'country': by_name or by_code,
         'timezone': timezone,
     }
+
+
+def parse_network(
+        data: typing.Mapping,
+) -> typing.Mapping:
+    """Parse a TVMaze network.
+
+    :param data: Network data from TVMaze
+    :return: A mapping contain country and timezone data
+    """
+    return {
+        'maze_id': data['id'],
+        'name': data['name'],
+        **parse_country(data['country']),
+    }
+
+
+def parse_webchannel(
+        data: typing.Mapping,
+) -> typing.Mapping:
+    """Parse a TVMaze Web Channel.
+
+    :param data: Web Channel data from TVMaze
+    :return: A mapping contain country and timezone data
+    """
+    country_data = data['country']
+    if country_data:
+        country = parse_country(country_data)
+    else:
+        country = {
+            'country': None,
+            'timezone': None,
+        }
+    return {
+        'maze_id': data['id'],
+        'name': data['name'],
+        **country,
+    }
